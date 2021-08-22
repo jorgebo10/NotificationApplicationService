@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="NotificationApplicationService" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="NotificationApplicationService" target="1.8" />
+      <module name="NotificationGatewayService" target="1.8" />
+      <module name="NotificationServiceService" target="1.8" />
+      <module name="NotificationTemplateService" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="NotificationApplicationService" options="-parameters" />
+      <module name="NotificationGatewayService" options="-parameters" />
+      <module name="NotificationServiceService" options="-parameters" />
+      <module name="NotificationTemplateService" options="-parameters" />
+    </option>
+  </component>
+</project>
