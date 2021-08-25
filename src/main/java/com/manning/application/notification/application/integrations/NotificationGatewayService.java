@@ -2,16 +2,19 @@ package com.manning.application.notification.application.integrations;
 
 import com.manning.application.notification.application.model.NotificationGatewayReq;
 import com.manning.application.notification.application.model.NotificationGatewayRsp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class NotificationGatewayService {
-    public static final String NOTIFICATION_PREFERENCES_URL = "http://localhost:8083/api/notifications/send";
+    public static final String NOTIFICATION_PREFERENCES_URL =
+            "http://NotificationGatewayService/api/notifications/gateway/send";
+    private final RestTemplate restTemplate;
 
     public NotificationGatewayRsp sendNotification(NotificationGatewayReq NotificationGatewayReq) {
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<NotificationGatewayRsp> response
                 = restTemplate.postForEntity(NOTIFICATION_PREFERENCES_URL, NotificationGatewayReq,
                 NotificationGatewayRsp.class);

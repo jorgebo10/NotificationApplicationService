@@ -2,6 +2,7 @@ com/manning/application/notification/application/model/NotificationGatewayRsp.cl
 com/manning/application/notification/application/model/NotificationGatewayReq.class
 com/manning/application/notification/application/model/NotificationPreferencesReq.class
 com/manning/application/notification/application/integrations/NotificationTemplateFormatterService.class
+com/manning/application/notification/application/config/RestTemplateConfig.class
 com/manning/application/notification/application/model/NotificationParameter.class
 com/manning/application/notification/application/services/NotificationService.class
 com/manning/application/notification/application/entities/NotificationParameter.class

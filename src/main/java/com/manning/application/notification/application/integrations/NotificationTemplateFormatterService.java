@@ -2,18 +2,20 @@ package com.manning.application.notification.application.integrations;
 
 import com.manning.application.notification.application.model.NotificationTemplateFormatterReq;
 import com.manning.application.notification.application.model.NotificationTemplateFormatterRsp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class NotificationTemplateFormatterService {
-
-    public static final String NOTIFICATION_PREFERENCES_URL = "http://localhost:8082/api/notifications/templates";
+    public static final String NOTIFICATION_PREFERENCES_URL =
+            "http://NotificationTemplatesServices/api/notifications/templates";
+    private final RestTemplate restTemplate;
 
     public NotificationTemplateFormatterRsp getNotificationTemplateFormatterRsp(
             NotificationTemplateFormatterReq notificationTemplateRequest) {
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<NotificationTemplateFormatterRsp> response
                 = restTemplate.postForEntity(NOTIFICATION_PREFERENCES_URL, notificationTemplateRequest,
                 NotificationTemplateFormatterRsp.class);
