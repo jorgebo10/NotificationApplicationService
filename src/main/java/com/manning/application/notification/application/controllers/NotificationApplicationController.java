@@ -4,6 +4,7 @@ import com.manning.application.notification.application.model.NotificationApplic
 import com.manning.application.notification.application.model.NotificationApplicationRsp;
 import com.manning.application.notification.application.services.NotificationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,5 +22,10 @@ public class NotificationApplicationController {
     public NotificationApplicationRsp create(
             @RequestBody @Valid NotificationApplicationReq notificationApplicationReq) {
         return notificationApplicationService.create(notificationApplicationReq);
+    }
+
+    @GetMapping("/healthcheck")
+    public String healthCheck() {
+        return "UP";
     }
 }
