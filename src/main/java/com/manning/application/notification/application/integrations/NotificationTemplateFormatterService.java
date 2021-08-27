@@ -2,6 +2,7 @@ package com.manning.application.notification.application.integrations;
 
 import com.manning.application.notification.application.model.NotificationTemplateFormatterReq;
 import com.manning.application.notification.application.model.NotificationTemplateFormatterRsp;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class NotificationTemplateFormatterService {
             "http://NotificationTemplatesServices/api/notifications/templates";
     private final RestTemplate restTemplate;
 
+    @CircuitBreaker(name = "templateService")
     public NotificationTemplateFormatterRsp getNotificationTemplateFormatterRsp(
             NotificationTemplateFormatterReq notificationTemplateRequest) {
         ResponseEntity<NotificationTemplateFormatterRsp> response
