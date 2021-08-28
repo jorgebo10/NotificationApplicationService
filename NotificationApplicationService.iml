@@ -203,6 +203,9 @@
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-kafka:2.16.1" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-activemq-client:2.16.1" level="project" />
     <orderEntry type="library" name="Maven: io.zipkin.reporter2:zipkin-sender-amqp-client:2.16.1" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-registry-prometheus:1.6.10" level="project" />
+    <orderEntry type="library" name="Maven: io.prometheus:simpleclient_common:0.9.0" level="project" />
+    <orderEntry type="library" name="Maven: io.prometheus:simpleclient:0.9.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:2.4.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.4.10" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.4.10" level="project" />
