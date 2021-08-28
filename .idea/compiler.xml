@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="NotificationApplicationService" target="1.8" />
+      <module name="NotificationApplicationService" target="11" />
       <module name="NotificationGatewayService" target="1.8" />
       <module name="NotificationServiceService" target="1.8" />
       <module name="NotificationTemplateService" target="1.8" />
