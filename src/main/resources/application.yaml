@@ -6,6 +6,8 @@ spring:
   sleuth:
     sampler:
       percentage: 1
+    web:
+      skipPattern: (^cleanup.*|.+favicon.*)
   config:
     import: "optional:consul:localhost:8500"
   datasource:
