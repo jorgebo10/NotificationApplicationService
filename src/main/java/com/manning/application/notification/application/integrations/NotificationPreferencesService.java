@@ -2,6 +2,7 @@ package com.manning.application.notification.application.integrations;
 
 import com.manning.application.notification.application.model.NotificationPreferencesReq;
 import com.manning.application.notification.application.model.NotificationPreferencesRsp;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ public class NotificationPreferencesService {
     private final NotificationService notificationService;
 
     @CircuitBreaker(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
+    @Bulkhead(name = "preferencesBulkhead", fallbackMethod = "buildFallbackPreference")
     public NotificationPreferencesRsp getNotificationPreferencesRsp(
             NotificationPreferencesReq notificationPreferencesRequest) {
         ResponseEntity<NotificationPreferencesRsp> response
@@ -27,9 +29,8 @@ public class NotificationPreferencesService {
 
     private NotificationPreferencesRsp buildFallbackPreference(NotificationPreferencesReq req, Throwable t) {
         NotificationPreferencesRsp notificationPreferencesRsp = new NotificationPreferencesRsp();
-        notificationPreferencesRsp.setSmsPreferenceFlag(Boolean.TRUE);
-        notificationPreferencesRsp.setStatus("SUCCESS");
-        notificationPreferencesRsp.setStatusDescription("Success");
+        notificationPreferencesRsp.setStatus("ERROR");
+        notificationPreferencesRsp.setStatusDescription("Sorry no preferences available");
         return notificationPreferencesRsp;
     }
 }
