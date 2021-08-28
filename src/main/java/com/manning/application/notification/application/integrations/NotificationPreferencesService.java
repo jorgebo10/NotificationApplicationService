@@ -4,6 +4,7 @@ import com.manning.application.notification.application.model.NotificationPrefer
 import com.manning.application.notification.application.model.NotificationPreferencesRsp;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class NotificationPreferencesService {
     @CircuitBreaker(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
     @Bulkhead(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
     @Retry(name = "preferencesService", fallbackMethod = "buildFallbackPreferences")
+    @RateLimiter(name = "preferencesService", fallbackMethod = "buildFallbackPreferences")
     public NotificationPreferencesRsp getNotificationPreferencesRsp(
             NotificationPreferencesReq notificationPreferencesRequest) {
         ResponseEntity<NotificationPreferencesRsp> response
