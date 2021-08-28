@@ -1,0 +1,38 @@
+server:
+  port: 8084
+spring:
+  config:
+    import: "optional:consul:localhost:8500"
+  datasource:
+    url: jdbc:h2:mem:notificationsdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instanceId: "${spring.application.name}:${random.value}"
+        healthCheckPath: /api/notifications/healthcheck
+        healthCheckInterval: 20s
+  application:
+    name: NotificationApplicationServices
+resilience4j:
+  retry:
+    instances:
+      preferencesService:
+        maxRetryAttempts: 5
+        waitDuration: 10000
+        retry-exceptions:
+          - java.util.concurrent.TimeoutException
