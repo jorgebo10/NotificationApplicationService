@@ -2,6 +2,7 @@ package com.manning.application.notification.application.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public final class NotificationApplicationReq {
     @NotEmpty
     private String customerId;

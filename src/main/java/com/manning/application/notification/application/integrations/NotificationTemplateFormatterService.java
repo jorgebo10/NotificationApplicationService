@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class NotificationTemplateFormatterService {
     public static final String NOTIFICATION_PREFERENCES_URL =
-            "http://NotificationTemplatesServices/api/notifications/templates";
+            "http://NotificationTemplateServices/api/notifications/templates";
     private final RestTemplate restTemplate;
 
     @CircuitBreaker(name = "templateService")

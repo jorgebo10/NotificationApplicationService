@@ -43,6 +43,12 @@ public class NotificationApplicationService {
         NotificationPreferencesRsp notificationPreferencesRsp =
                 notificationPreferencesService.getNotificationPreferencesRsp(notificationPreferencesReq);
 
+        if (notificationPreferencesRsp.getStatus().equals("ERROR")) {
+            NotificationApplicationRsp notificationApplicationRsp = new NotificationApplicationRsp();
+            notificationApplicationRsp.setStatus(notificationPreferencesRsp.getStatus());
+            notificationApplicationRsp.setStatusDescription(notificationPreferencesRsp.getStatusDescription());
+            return notificationApplicationRsp;
+        }
         //format the provided template according to user preferences, email or sms
         NotificationTemplateFormatterReq notificationTemplateFormatterReq =
                 notificationFormatter.toNotificationTemplateFormatterReq(notificationApplicationReq,
@@ -51,12 +57,26 @@ public class NotificationApplicationService {
                 notificationTemplateFormatterService.getNotificationTemplateFormatterRsp(
                         notificationTemplateFormatterReq);
 
+        if (notificationTemplateFormatterRsp.getStatus().equals("ERROR")) {
+            NotificationApplicationRsp notificationApplicationRsp = new NotificationApplicationRsp();
+            notificationApplicationRsp.setStatus(notificationTemplateFormatterRsp.getStatus());
+            notificationApplicationRsp.setStatusDescription(notificationTemplateFormatterRsp.getStatusDescription());
+            return notificationApplicationRsp;
+        }
+
         //Return result from notification gateway
         NotificationGatewayReq notificationGatewayReq =
                 notificationFormatter.totNotificationGatewayReq(notificationApplicationReq, notificationPreferencesRsp,
                         notificationTemplateFormatterRsp);
         NotificationGatewayRsp notificationGatewayRsp =
                 notificationGatewayService.sendNotification(notificationGatewayReq);
+
+        if (notificationGatewayRsp.getStatus().equals("ERROR")) {
+            NotificationApplicationRsp notificationApplicationRsp = new NotificationApplicationRsp();
+            notificationApplicationRsp.setStatus(notificationGatewayRsp.getStatus());
+            notificationApplicationRsp.setStatusDescription(notificationGatewayRsp.getStatusDescription());
+            return notificationApplicationRsp;
+        }
         return notificationFormatter.toNotificationApplicationRsp(notification, notificationGatewayRsp.getStatus());
     }
 }

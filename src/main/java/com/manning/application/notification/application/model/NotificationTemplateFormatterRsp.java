@@ -1,10 +1,8 @@
 package com.manning.application.notification.application.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public final class NotificationTemplateFormatterRsp {
     private String status;
     private String statusDescription;

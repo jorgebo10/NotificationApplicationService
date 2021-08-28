@@ -15,22 +15,22 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class NotificationPreferencesService {
     public static final String NOTIFICATION_PREFERENCES_URL =
-            "http://NotificationPreferencesServices/api/notification/preferences";
+            "http://NotificationPreferencesServices/api/notifications/preferences";
     private final RestTemplate restTemplate;
 
     @CircuitBreaker(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
     @Bulkhead(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
-    @Retry(name = "preferencesService", fallbackMethod = "buildFallbackPreferences")
-    @RateLimiter(name = "preferencesService", fallbackMethod = "buildFallbackPreferences")
+    @Retry(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
+    @RateLimiter(name = "preferencesService", fallbackMethod = "buildFallbackPreference")
     public NotificationPreferencesRsp getNotificationPreferencesRsp(
-            NotificationPreferencesReq notificationPreferencesRequest) {
+            NotificationPreferencesReq notificationPreferencesReq) {
         ResponseEntity<NotificationPreferencesRsp> response
-                = restTemplate.postForEntity(NOTIFICATION_PREFERENCES_URL, notificationPreferencesRequest,
+                = restTemplate.postForEntity(NOTIFICATION_PREFERENCES_URL, notificationPreferencesReq,
                 NotificationPreferencesRsp.class);
         return response.getBody();
     }
 
-    private NotificationPreferencesRsp buildFallbackPreference(NotificationPreferencesReq req, Throwable t) {
+    public NotificationPreferencesRsp buildFallbackPreference(NotificationPreferencesReq req, Throwable t) {
         NotificationPreferencesRsp notificationPreferencesRsp = new NotificationPreferencesRsp();
         notificationPreferencesRsp.setStatus("ERROR");
         notificationPreferencesRsp.setStatusDescription("Sorry no preferences available");

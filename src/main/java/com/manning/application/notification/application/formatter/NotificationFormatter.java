@@ -9,11 +9,13 @@ import com.manning.application.notification.application.model.NotificationPrefer
 import com.manning.application.notification.application.model.NotificationPreferencesRsp;
 import com.manning.application.notification.application.model.NotificationTemplateFormatterReq;
 import com.manning.application.notification.application.model.NotificationTemplateFormatterRsp;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class NotificationFormatter {
 
     public NotificationApplicationRsp toNotificationApplicationRsp(Notification notification, String status) {
@@ -30,26 +32,33 @@ public class NotificationFormatter {
 
     }
 
-    public NotificationPreferencesReq toNotificationPreferencesReq(NotificationApplicationReq notificationRequest) {
-        NotificationPreferencesReq notificationPreferencesRequest = new NotificationPreferencesReq();
-        notificationPreferencesRequest.setCustomerId(notificationRequest.getCustomerId());
-        return notificationPreferencesRequest;
+    public NotificationPreferencesReq toNotificationPreferencesReq(NotificationApplicationReq notificationApplicationReq) {
+        log.info(notificationApplicationReq.toString());
+        NotificationPreferencesReq notificationPreferencesReq = new NotificationPreferencesReq();
+        notificationPreferencesReq.setCustomerId(notificationApplicationReq.getCustomerId());
+        log.info(notificationPreferencesReq.toString());
+        return notificationPreferencesReq;
     }
 
     public NotificationTemplateFormatterReq toNotificationTemplateFormatterReq(
             NotificationApplicationReq notificationApplicationReq,
             NotificationPreferencesRsp notificationPreferencesRsp) {
-        NotificationTemplateFormatterReq notificationTemplateRequest = new NotificationTemplateFormatterReq();
+
+        log.info(notificationApplicationReq.toString());
+        log.info(notificationPreferencesRsp.toString());
+        NotificationTemplateFormatterReq notificationTemplateFormatterReq = new NotificationTemplateFormatterReq();
         if (notificationPreferencesRsp.getEmailPreferenceFlag() != null) {
-            notificationTemplateRequest.setNotificationMode("EMAIL");
+            notificationTemplateFormatterReq.setNotificationMode("EMAIL");
         } else if (notificationPreferencesRsp.getSmsPreferenceFlag() != null) {
-            notificationTemplateRequest.setNotificationMode("SMS");
+            notificationTemplateFormatterReq.setNotificationMode("SMS");
         }
 
-        notificationTemplateRequest.setNotificationTemplateName(
+        notificationTemplateFormatterReq.setNotificationTemplateName(
                 notificationApplicationReq.getNotificationTemplateName());
-        notificationTemplateRequest.setNotificationParameters(notificationApplicationReq.getNotificationParameters());
-        return notificationTemplateRequest;
+        notificationTemplateFormatterReq.setNotificationParameters(notificationApplicationReq.getNotificationParameters());
+        log.info(notificationTemplateFormatterReq.toString());
+
+        return notificationTemplateFormatterReq;
     }
 
     public NotificationGatewayReq totNotificationGatewayReq(NotificationApplicationReq notificationApplicationReq,
